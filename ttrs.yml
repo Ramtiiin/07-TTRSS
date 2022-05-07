@@ -1,0 +1,27 @@
+version: "3"
+services:
+    db:
+        #build:
+        image: postgres
+        volumes:
+            - ./data:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=admin
+    php:
+        image: fenglc/pgadmin4
+        ports:
+            - 5050:5050
+    ttrs:
+        image: wangqiru/ttrss
+        environment:
+            SELF_URL_PATH : http://172.28.28.28:8008
+            DB_HOST : 07-ttrss_db_1
+            DB_PORT : 5432
+            DB_NAME : ttrs
+            DB_USER : admin
+            DB_PASS : admin
+        ports:
+            - 8008:80
